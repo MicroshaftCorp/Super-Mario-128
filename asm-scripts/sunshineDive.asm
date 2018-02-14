@@ -18,20 +18,20 @@ nop
 
 ; check if mario is in the dive slide state, the slope slide state, or the slide recover state
 li t0, MARIO_STRUCT
-li t1, ACTION_DIVE
-lw t2, 0x0C(t0) ; get mario's current action
-li t3, ACTION_SLIDE
-sub t4, t2, t3
-li t3, ACTION_SLIDERECOVER
-sub t5, t2, t3
-li t3, ACTION_SLOPESLIDE
-sub t6, t2, t3
-and t7, t4, t5
-and t7, t7, t6
-bne t7, $zero, proc802CB1C0_end
+lw t1, 0x0C(t0) ; get mario's current action
+li t2, ACTION_SLIDE
+sub t3, t1, t2
+li t2, ACTION_SLIDERECOVER
+sub t4, t1, t2
+li t2, ACTION_SLOPESLIDE
+and t6, t3, t4
+sub t5, t1, t2
+and t6, t6, t5
+bne t6, $zero, proc802CB1C0_end
 nop
 
 ; perform the dive hop
+li t1, ACTION_DIVE
 sw t1, 0x0C(t0) ; Set mario's action to diving
 li t1, 30.0
 mtc1 t1, f2
