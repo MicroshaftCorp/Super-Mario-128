@@ -2,7 +2,6 @@
 
 // When the player holds the L button, Mario will float up into the air
 
-.defineLabel BTN_L, 0x20
 .defineLabel MARIO_STRUCT, 0x8033B170
 
 // See this wiki page for a list of Mario's actions: http://wiki.origami64.net/sm64:actions
@@ -14,11 +13,8 @@
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
-// Tests if the player is holding down the L button.
-lh at, 0x8033AFA0
-andi at, at, BTN_L
-li a0, BTN_L
-bne at, a0, proc802CB1C0_end
+// Tests if the player pressed L on this frame
+.f_testInput BUTTON_B, BUTTON_PRESSED, proc802CB1C0_end
 nop
 
 li t0, MARIO_STRUCT
