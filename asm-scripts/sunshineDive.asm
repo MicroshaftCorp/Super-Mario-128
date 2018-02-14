@@ -2,7 +2,9 @@
 
 ; See this wiki page for a list of Mario's actions: http://wiki.origami64.net/sm64:actions
 .defineLabel ACTION_DIVE, 0x0188088A 
-.defineLabel ACTION_DSLIDE, 0x00880456
+.defineLabel ACTION_SLIDE, 0x00880456
+.defineLabel ACTION_SLIDERECOVER, 0x00000386
+.defineLabel ACTION_SLOPESLIDE, 0x00880453
 
 ; begin function
 .orga 0x861C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
@@ -14,12 +16,19 @@ sw ra, 0x14 (sp)
 .f_testInput BUTTON_B, BUTTON_PRESSED, proc802CB1C0_end
 nop
 
-; check if mario is in the dive slide state
+; check if mario is in the dive slide state, the slope slide state, or the slide recover state
 li t0, MARIO_STRUCT
 li t1, ACTION_DIVE
-li t2, ACTION_DSLIDE
-lw t3, 0x0C(t0) ; get mario's current action
-bne t3, t2, proc802CB1C0_end
+lw t2, 0x0C(t0) ; get mario's current action
+li t3, ACTION_SLIDE
+sub t4, t2, t3
+li t3, ACTION_SLIDERECOVER
+sub t5, t2, t3
+li t3, ACTION_SLOPESLIDE
+sub t6, t2, t3
+and t7, t4, t5
+and t7, t7, t6
+bne t7, $zero, proc802CB1C0_end
 nop
 
 ; perform the dive hop
