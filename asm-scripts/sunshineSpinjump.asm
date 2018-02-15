@@ -3,6 +3,10 @@
 ; See this wiki page for a list of Mario's actions: http://wiki.origami64.net/sm64:actions
 .defineLabel ACTION_FALL, 0x0100088C
 .defineLabel ACTION_MOVING, 0x04000440
+.defineLabel ACTION_STANDING, 0x0C400201
+.defineLabel ACTION_JUMPLAND, 0x0C000230
+.defineLabel ACTION_DJLAND, 0x0C000231
+.defineLabel ACTION_TJLAND, 0x04000478
 
 ; begin function
 .orga 0x861C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
@@ -14,11 +18,24 @@ sw ra, 0x14 (sp)
 .f_testInput BUTTON_L, BUTTON_PRESSED, proc802CB1C0_end
 nop
 
-; check if mario is in the moving state
+; check if mario is in a state out of which he may jump
 li t0, MARIO_STRUCT
 lw t1, 0x0C(t0) ; get mario's current action
 li t2, ACTION_MOVING
-bne t2, t1, proc802CB1C0_end
+sub t3, t1, t2
+li t2, ACTION_STANDING
+sub t4, t1, t2
+li t2, ACTION_JUMPLAND
+and t6, t3, t4
+sub t5, t1, t2
+and t6, t6, t5
+li t2, ACTION_DJLAND
+sub t5, t1, t2
+and t6, t6, t5
+;li t2, ACTION_TJLAND
+;sub t5, t1, t2
+;and t6, t6, t5
+bne t6, $zero, proc802CB1C0_end
 nop
 
 ; perform the spin jump
