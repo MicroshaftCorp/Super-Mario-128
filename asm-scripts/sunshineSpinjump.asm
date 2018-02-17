@@ -5,8 +5,8 @@
 .defineLabel ACTION_MOVING, 0x04000440
 
 ; begin function
-.orga 0xc7834 ; Set ROM address, we are overwritting a useless loop function as our hook.
-.area 0xFF ; Set data import limit to 0xA4 bytes
+.orga 0x7CC6C0; Set ROM address to the beginning of unused space at the end of the rom
+.area 0xA4 ; Set data import limit to 0xA4 bytes
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
