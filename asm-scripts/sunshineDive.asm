@@ -8,7 +8,7 @@
 
 ; begin function
 .orga 0x7CC6C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
-.area 0xA4 ; Set data import limit to 0xA4 bytes
+.area 0xB4 ; Set data import limit to 0xB4 bytes
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
