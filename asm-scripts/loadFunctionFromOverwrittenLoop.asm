@@ -5,7 +5,7 @@
 // Addresses to the custom text
 .defineLabel RamCopyAddr, 0x80370000
 .defineLabel RamCopyAddr_ROM_start, 0x7CC6C0
-.defineLabel RamCopyAddr_ROM_end, 0x7CC784
+.defineLabel RamCopyAddr_ROM_end, 0x7CC79C
 
 // Call our custom function with DMACopy from the top-most levelscript.
 .orga 0x108A18
@@ -16,21 +16,21 @@
 .area 0x64 ; Set data import limit to 0x64 bytes
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
-sw a0, 0xD4 (sp) ; lvl cmd 0x11 safeguard
+sw a0, 0xE4 (sp) ; lvl cmd 0x11 safeguard
 
 // These three are nessecary because of what we overwrote at 0x108A18.
 jal func_osViBlack ; call osViBlack
 move a0, r0
 sw r0, 0x8038BE24 ; Set level accumulator to 0
 
-// Copies 0xD4 bytes from ROM addr 0x7CC6C0 to RAM addr 0x80370000
+// Copies 0xE4 bytes from ROM addr 0x7CC6C0 to RAM addr 0x80370000
 la a0, RamCopyAddr ; RAM address to copy to
 la a1, RamCopyAddr_ROM_start ; ROM address start to copy from
 la.u a2, RamCopyAddr_ROM_end ; ROM address end point (determines copy size)
 jal func_DMACopy ; call DMACopy function
 la.l a2, RamCopyAddr_ROM_end ; ROM address end point (determines copy size)
 
-lw v0, 0xD4 (sp) ; lvl cmd 0x11 safeguard
+lw v0, 0xE4 (sp) ; lvl cmd 0x11 safeguard
 lw ra, 0x14 (sp)
 jr ra
 addiu sp, sp, 0x18
