@@ -5,7 +5,7 @@ addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
 ; call our custom function at the end of the rom memory
-jal 0x7CC6C0
+jal 0x80A116C0
 nop
 
 ; end function

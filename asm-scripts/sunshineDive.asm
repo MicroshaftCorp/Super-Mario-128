@@ -7,7 +7,7 @@
 .defineLabel ACTION_SLOPESLIDE, 0x00880453
 
 ; begin function
-.orga 0x861C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
+.orga 0x7CC6C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
 .area 0xA4 ; Set data import limit to 0xA4 bytes
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
