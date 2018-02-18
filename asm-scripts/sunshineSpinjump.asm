@@ -8,19 +8,36 @@
 .defineLabel ACTION_DJLAND, 0x0C000231
 .defineLabel ACTION_TJLAND, 0x04000478
 
+.defineLabel spinJumping, 0x7F0000
+
 ; begin function
-.orga 0x861C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
-.area 0xB4 ; Set data import limit to 0xA4 bytes
+.orga 0x7CC6C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
+.area 0xD4 ; Set data import limit to 0xD4 bytes
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
+; get mario struct data
+li t0, MARIO_STRUCT
+lw t1, 0x0C(t0) ; get mario's current action
+
+;check if the player is mid-spinjump
+li t2, 1 ;store 1 in register t2
+li t7, spinJumping
+bne t7, t2, skip0
+nop
+; perform the spin jump
+li t1, ACTION_FALL
+sw t1, 0x0C(t0) ; Set mario's action to diving
+li t1, 50.0
+mtc1 t1, f2
+swc1 f2, 0x4C(t0) ; Set mario's y-speed to 50.0
+
+skip0:
 ; check if the player pressed L on this frame
 .f_testInput BUTTON_L, BUTTON_PRESSED, proc802CB1C0_end
 nop
 
 ; check if mario is in a state out of which he may jump
-li t0, MARIO_STRUCT
-lw t1, 0x0C(t0) ; get mario's current action
 li t2, ACTION_MOVING
 sub t3, t1, t2
 li t2, ACTION_STANDING
@@ -38,12 +55,8 @@ and t6, t6, t5
 bne t6, $zero, proc802CB1C0_end
 nop
 
-; perform the spin jump
-li t1, ACTION_FALL
-sw t1, 0x0C(t0) ; Set mario's action to diving
-li t1, 50.0
-mtc1 t1, f2
-swc1 f2, 0x4C(t0) ; Set mario's y-speed to 50.0
+addi t7, $zero, 1 ;set spinJumping register to 1
+sw t7, spinJumping
 
 ; end function
 proc802CB1C0_end:
