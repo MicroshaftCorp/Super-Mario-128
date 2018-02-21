@@ -8,13 +8,11 @@
 .defineLabel ACTION_DJLAND, 0x0C000231
 .defineLabel ACTION_TJLAND, 0x04000478
 
-.defineLabel func_printXY, 0x802D66C0
-
 .defineLabel spinJumpState, 0x802CB260
 
 ; begin function
 .orga 0x7CC6C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
-.area 0xE4 ; Set data import limit to 0xD4 bytes
+.area 0xF4 ; Set data import limit to 0xD4 bytes
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
@@ -23,12 +21,18 @@ li t0, MARIO_STRUCT
 lw t1, 0x0C(t0) ; get mario's current action
 
 ;check if the player is mid-spinjump
-li t2, 1 ;store 1 in register t2
+li t2, 1
 lw t7, spinJumpState
 bne t7, t2, skip0
-nop
+
+;the player is mid-spinJump, so check his state; if he's not falling, set spinJump back to 0
+li t3, ACTION_FALL
+beq t1, t3, applySpinJumpGravity
+li t7, 0
+sw t7, spinJumpState
 
 ;we are mid spinJump; add to the y-speed a small amount
+applySpinJumpGravity:
 lwc1 f2, 0x4C(t0)
 li.s f4, 1.5
 add.s f6, f2, f4
