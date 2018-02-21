@@ -27,16 +27,12 @@ li t2, 1 ;store 1 in register t2
 lw t7, spinJumpState
 bne t7, t2, skip0
 nop
+
 ;we are mid spinJump; add to the y-speed a small amount
-lwc1 f0, 0x4C(t0)   
-li.s f1, 42.7
-add.d f0, f0, f1
-swc1 f0, 0x4C(t0)
-;lwc1 f0, 0x4C(t0)
-;li t2, 2
-;mtc1 t2, f1
-;add.d f2, f0, f1
-;swc1 f2, 0x4C(t0)
+lwc1 f2, 0x4C(t0)
+li.s f4, 1.5
+add.s f6, f2, f4
+swc1 f6, 0x4C(t0)
 
 skip0:
 ; check if the player pressed L on this frame
