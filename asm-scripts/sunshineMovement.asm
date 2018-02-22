@@ -38,12 +38,20 @@ beq t1, t3, applySpinJumpGravity
 li t7, 0
 sw t7, spinJumpState
 
-;we are mid spinJump; add to the y-speed a small amount
+;we are mid spinJump;
+;add to the y-speed a small amount
 applySpinJumpGravity:
 lwc1 f2, 0x4C(t0)
 li.s f4, 1.5
 add.s f6, f2, f4
 swc1 f6, 0x4C(t0)
+;add to the rotation a small amount
+lh t8, 0x2E(t0)
+mtc1 t8, f2
+li.s f4, 2.2
+add.s f6, f2, f4
+mfc1 t8, f6
+sh t8, 0x2E(t0)
 
 skip0:
 ; check if the player pressed L on this frame
@@ -72,7 +80,7 @@ addi t7, $zero, 1 ;set spinJumpState register to 1
 ; perform the spin jump
 li t1, ACTION_FALL
 sw t7, spinJumpState
-sw t1, 0x0C(t0) ; Set mario's action to diving
+sw t1, 0x0C(t0) ; Set mario's action to falling
 li t1, 50.0
 mtc1 t1, f2
 swc1 f2, 0x4C(t0) ; Set mario's y-speed to 50.0

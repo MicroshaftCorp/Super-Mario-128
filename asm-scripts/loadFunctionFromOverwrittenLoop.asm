@@ -5,7 +5,7 @@
 // Addresses to the custom text
 .defineLabel RamCopyAddr, 0x80370000
 .defineLabel RamCopyAddr_ROM_start, 0x7CC6C0
-.defineLabel RamCopyAddr_ROM_end, 0x7CC81C
+.defineLabel RamCopyAddr_ROM_end, 0x7CC83C
 
 // Call our custom function with DMACopy from the top-most levelscript.
 .orga 0x108A18
