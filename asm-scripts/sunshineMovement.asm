@@ -46,12 +46,13 @@ li.s f4, 1.5
 add.s f6, f2, f4
 swc1 f6, 0x4C(t0)
 ;add to the rotation a small amount
-lh t8, 0x2E(t0)
-mtc1 t8, f2
-li.s f4, 2.2
-add.s f6, f2, f4
-mfc1 t8, f6
-sh t8, 0x2E(t0)
+;lhu t8, 0x002E(t0)
+;addiu t8, t8, 3
+;sh t8, 0x002E(t0)
+ORI AT, R0, 0x5000
+LH T7, 0x002E (t0)
+ADDU T8, T7, AT
+SH T8, 0x002E (t0)
 
 skip0:
 ; check if the player pressed L on this frame
