@@ -39,20 +39,40 @@ li t7, 0
 sw t7, spinJumpState
 
 ;we are mid spinJump;
-;add to the y-speed a small amount
 applySpinJumpGravity:
+;add a small boost to the y velocity
 lwc1 f2, 0x4C(t0)
 li.s f4, 1.5
 add.s f6, f2, f4
 swc1 f6, 0x4C(t0)
-;add to the rotation a small amount
-;lhu t8, 0x002E(t0)
-;addiu t8, t8, 3
-;sh t8, 0x002E(t0)
-ORI AT, R0, 0x5000
-LH T7, 0x002E (t0)
-ADDU T8, T7, AT
-SH T8, 0x002E (t0)
+;rotate mario's animation
+lui t7, 0x8036
+lw t7, 0x1158 (T7)
+lh t4, 0x0040 (T7)
+lw t7, 0x003c (T7)
+beq t7, r0, skip0
+nop
+lw t6, 0x0010 (T7)
+lw v1, 0x000c (T7)
+lui at, 0x0006
+ori at, at, 0x0048
+sub t6, t6, at
+add t7, t7, t6
+lhu a1, 0x004a (T7)
+lhu t5, 0x0048 (T7)
+sll t5, t5, 1
+slt at, t5, t4
+sll a1, a1, 1
+bne at, r0, skipsllhere
+nop
+add a1, a1, t4
+skipsllhere:
+lui at, 0x8000
+or a0, v1, at
+add a0, a0, a1
+lh t6, 0x0000 (A0)
+addiu t6, t6, 0x2000 ;apply the rotation
+sh t6, 0x0000 (A0)
 
 skip0:
 ; check if the player pressed L on this frame
