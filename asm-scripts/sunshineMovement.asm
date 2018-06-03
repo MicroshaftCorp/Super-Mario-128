@@ -17,7 +17,7 @@
 .defineLabel spinJumpState, 0x802CB260
 
 //begin function
-.orga 0x7CC6C0 ; Set ROM address, we are overwritting a useless loop function as our hook.
+.orga 0x7CC6C0 ;set our function to the first unused byte at the end of the ROM
 addiu sp, sp, -0x18
 sw ra, 0x14 (sp)
 
