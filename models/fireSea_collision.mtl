@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 03.06.2018 20:15:16
+# File Created: 04.06.2018 00:39:26
 
 newmtl 01___Default
 collisionType 0 0 0
@@ -47,6 +47,7 @@ map_Ka C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\lava.png
 map_Kd C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\lava.png
 
 newmtl 14___Default
+collisionType 0 0 0
 Ns 10.0000
 Ni 1.5000
 d 1.0000
@@ -61,6 +62,7 @@ map_Ka C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\grass2.png
 map_Kd C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\grass2.png
 
 newmtl Material__22
+collisionType 0 0 0
 Ns 10.0000
 Ni 1.5000
 d 1.0000
