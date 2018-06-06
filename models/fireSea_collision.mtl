@@ -1,8 +1,8 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 05.06.2018 20:14:56
+# File Created: 06.06.2018 00:41:03
 
 newmtl 01___Default
-collisionType 0 0 0
+collisionType 21 0 0
 Ns 10.0000
 Ni 1.5000
 d 1.0000
@@ -135,3 +135,33 @@ Ks 0.0000 0.0000 0.0000
 Ke 0.0000 0.0000 0.0000
 map_Ka C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\gravel.png
 map_Kd C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\gravel.png
+
+newmtl 04___Default
+collisionType 44 187 187
+Ns 10.0000
+Ni 1.5000
+d 1.0000
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 2
+Ka 0.5882 0.5882 0.5882
+Kd 0.5882 0.5882 0.5882
+Ks 0.0000 0.0000 0.0000
+Ke 0.0000 0.0000 0.0000
+map_Ka C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\sandyStone.png
+map_Kd C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\sandyStone.png
+
+newmtl 21___Default
+collisionType 38 0 0
+Ns 10.0000
+Ni 1.5000
+d 1.0000
+Tr 0.0000
+Tf 1.0000 1.0000 1.0000
+illum 2
+Ka 0.5880 0.5880 0.5880
+Kd 0.5880 0.5880 0.5880
+Ks 0.0000 0.0000 0.0000
+Ke 0.0000 0.0000 0.0000
+map_Ka C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\sand.png
+map_Kd C:\Users\Ryan\Documents\git-projects\sm64-hacking\models\sand.png
