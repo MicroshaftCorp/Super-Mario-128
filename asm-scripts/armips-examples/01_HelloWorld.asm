@@ -18,4 +18,4 @@ addiu sp, sp, 0x18
 .endarea
 
 .orga 0x86250 ; 0x802CB250
-.asciiz "Hello World"
+.asciiz "It's SM128!"
